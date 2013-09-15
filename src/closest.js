@@ -8,10 +8,12 @@
 
             filter = typeof filter === 'string' ?
                 document.querySelector(filter) : filter;
-            while (!found && node instanceof Element && node !== filter) {
-                found = node.matches(selector);
-                node = !found ? node.parentNode : node;
+            while (node instanceof Element &&
+                !(found = node.matches(selector)) &&
+                node !== filter) {
+                node = node.parentNode;
             }
+
             return found ? node : null;
         };
     }
